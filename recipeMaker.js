@@ -206,9 +206,7 @@ function renderRecipeList() {
     const html = `
         <table>
             <tr>
-                <td class="recipe-title" onclick=(${detailedDescription(
-                  ingredients
-                )})>${title}</td>
+                <td class="recipe-title">${title}</td>
                 <td>${description}</td>
                 <td class="ingredients">${ingredients}</td>
                 <td><img src=${image} width="100" height="100"/></td>
@@ -222,11 +220,11 @@ function renderRecipeList() {
   document.querySelector(".js-recipe-list").innerHTML = recipeListHTML;
 
   document.querySelectorAll(".recipe-title").forEach((title, index) => {
-    title.addEventListener("click", (title) => {
+    title.addEventListener("click", () => {
       const selectedRecipe = recipes.splice(index, 1);
 
       alert(`
-        Title: ${selectedRecipe[0].title}
+Title: ${selectedRecipe[0].title}
 Instruction: ${selectedRecipe[0].instructions}
     `);
     });
@@ -237,14 +235,9 @@ document.querySelector("#searchbar").addEventListener("keydown", () => {
   searchRecipe();
 });
 
-function detailedDescription(recipeTitle) {
-  console.log(recipeTitle);
-}
-
-let searchInput = document.getElementById("searchbar").value;
-searchInput = searchInput.toLowerCase();
-
 function searchRecipe() {
+  let searchInput = document.getElementById("searchbar").value;
+  searchInput = searchInput.toLowerCase();
   let ingredients = document.getElementsByClassName("ingredients");
 
   for (i = 0; i < ingredients.length; i++) {
