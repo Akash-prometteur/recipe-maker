@@ -13,7 +13,8 @@ let recipes = [
     ],
     instructions:
       "1. Cook spaghetti in boiling salted water until al dente. Reserve pasta water. 2. Cook pancetta until crisp. 3. Whisk eggs and cheeses. 4. Toss hot spaghetti with pancetta, then egg mixture. 5. Add reserved pasta water, if needed. 6. Season and serve with extra cheese.",
-    image: "",
+    image:
+      "https://static01.nyt.com/images/2021/02/14/dining/carbonara-horizontal/carbonara-horizontal-square640-v2.jpg",
   },
   {
     title: "Chicken Stir-Fry",
@@ -35,7 +36,8 @@ let recipes = [
     ],
     instructions:
       "1. Mix soy sauce, oyster sauce, cornstarch, and broth. 2. Stir-fry chicken until cooked; set aside. 3. Stir-fry garlic and ginger; add vegetables. 4. Return chicken to skillet with sauce; stir until thickened. 5. Season and serve hot with rice.",
-    image: "",
+    image:
+      "https://www.saltandlavender.com/wp-content/uploads/2022/03/chicken-stir-fry-1.jpg",
   },
   {
     title: "Caprese Salad",
@@ -51,7 +53,8 @@ let recipes = [
     ],
     instructions:
       "1. Alternate tomato and mozzarella slices. 2. Add basil leaves. 3. Drizzle with olive oil and balsamic glaze. 4. Season and serve as a side dish or appetizer.",
-    image: "",
+    image:
+      "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2019/07/Caprese-Salad-main-1.jpg",
   },
   {
     title: "Chocolate Chip Cookies",
@@ -70,7 +73,8 @@ let recipes = [
     ],
     instructions:
       "1. Cream butter and sugars. 2. Beat in eggs and vanilla. 3. Mix flour, baking soda, and salt; gradually add to creamed mixture. 4. Stir in chocolate chips. 5. Drop onto baking sheets; bake until golden. 6. Cool on wire rack.",
-    image: "",
+    image:
+      "https://sallysbakingaddiction.com/wp-content/uploads/2013/05/classic-chocolate-chip-cookies.jpg",
   },
   {
     title: "Greek Salad",
@@ -90,7 +94,8 @@ let recipes = [
     ],
     instructions:
       "1. Combine tomatoes, cucumber, onion, bell pepper, and olives. 2. Add feta cheese and oregano. 3. Drizzle with olive oil and vinegar. 4. Season and toss gently. 5. Serve chilled.",
-    image: "",
+    image:
+      "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad-6-1.jpg",
   },
   {
     title: "Guacamole",
@@ -108,7 +113,8 @@ let recipes = [
     ],
     instructions:
       "1. Mash avocados with lime juice, salt, cumin, and cayenne. 2. Fold in onion, cilantro, and tomato. 3. Cover and chill. 4. Serve with chips or as a topping.",
-    image: "",
+    image:
+      "https://detoxinista.com/wp-content/uploads/2019/01/guacamole-in-bowl.jpg",
   },
   {
     title: "Pasta Primavera",
@@ -129,7 +135,8 @@ let recipes = [
     ],
     instructions:
       "1. Cook pasta with vegetables; reserve water. 2. Sauté garlic in oil; add pasta and vegetables. 3. Stir in Parmesan and cream; add reserved water. 4. Season and serve.",
-    image: "",
+    image:
+      "https://thecozycook.com/wp-content/uploads/2024/02/Pasta-Primavera-f.jpg",
   },
   {
     title: "Caesar Salad",
@@ -144,7 +151,8 @@ let recipes = [
     ],
     instructions:
       "1. Toss lettuce with dressing. 2. Add croutons and toss. 3. Sprinkle with Parmesan and pepper. 4. Serve as a side or main dish with chicken.",
-    image: "",
+    image:
+      "https://www.allrecipes.com/thmb/mXZ0Tulwn3x9_YB_ZbkiTveDYFE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/229063-Classic-Restaurant-Caesar-Salad-ddmfs-4x3-231-89bafa5e54dd4a8c933cf2a5f9f12a6f.jpg",
   },
   {
     title: "Ratatouille",
@@ -167,7 +175,8 @@ let recipes = [
     ],
     instructions:
       "1. Sauté eggplant until browned; set aside. 2. Sauté zucchini, squash, onion, peppers, and garlic. 3. Add tomatoes and paste; cook. 4. Return eggplant with herbs; simmer. 5. Season and serve hot.",
-    image: "",
+    image:
+      "https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe.jpg",
   },
   {
     title: "Berry Smoothie",
@@ -182,11 +191,10 @@ let recipes = [
     ],
     instructions:
       "1. Blend berries, banana, yogurt, and milk. 2. Add honey if desired. 3. Blend until smooth. 4. Serve immediately.",
-    image: "",
+    image:
+      "https://www.dinneratthezoo.com/wp-content/uploads/2017/01/mixed-berry-smoothie-2.jpg",
   },
 ];
-
-renderRecipeList();
 
 function renderRecipeList() {
   let recipeListHTML = "";
@@ -196,16 +204,24 @@ function renderRecipeList() {
     const { title, description, ingredients, instructions, image } =
       recipeObject;
 
+    // const html = `
+    //     <div>${title}</div>
+    //     <div>${description}</div>
+    //     <div class="ingredients">${ingredients}</div>
+    //     <div>${image}</div>
+    // `;
     const html = `
-        <div>${title}</div>
-        <div>${description}</div>
-        <div class="ingredients">${ingredients}</div>
-        <div>${image}</div>
+        <table>
+            <tr>
+                <td>${title}</td>
+                <td>${description}</td>
+                <td class="ingredients">${ingredients}</td>
+                <td><img src=${image} width="100" height="100"/></td>
+            </tr>
+        </table>
     `;
 
     recipeListHTML += html;
-
-    console.log(ingredients);
   });
 
   document.querySelector(".js-recipe-list").innerHTML = recipeListHTML;
@@ -215,20 +231,23 @@ document.querySelector("#searchbar").addEventListener("keydown", () => {
   searchRecipe();
 });
 
+// document.querySelector(".search-btn").addEventListener("click", () => {
+//   searchRecipe();
+// });
+
 function searchRecipe() {
   let searchInput = document.getElementById("searchbar").value;
   searchInput = searchInput.toLowerCase();
-  console.log(searchInput);
 
   let ingredients = document.getElementsByClassName("ingredients");
 
   for (i = 0; i < ingredients.length; i++) {
     if (!ingredients[i].innerHTML.toLocaleLowerCase().includes(searchInput)) {
-        ingredients[i].style.display = "none";
+      ingredients[i].style.display = "none";
     } else {
-        ingredients[i].style.display = "list-item";
+      ingredients[i].style.display = "list-item";
     }
   }
 
-  console.log(ingredients);
+  renderRecipeList();
 }

@@ -4,7 +4,7 @@ body {
 
 .recipe-grid {
   display: grid;
-  grid-template-columns: 200px 400px 400px 200px;
+  /* grid-template-columns: 200px 400px 400px 200px; */
   column-gap: 10px;
   row-gap: 10px;
   font-size: 13px;
