@@ -200,20 +200,15 @@ function renderRecipeList() {
   let recipeListHTML = "";
 
   recipes.forEach(function (recipeObject) {
-    console.log(recipeObject.instructions);
     const { title, description, ingredients, instructions, image } =
       recipeObject;
 
-    // const html = `
-    //     <div>${title}</div>
-    //     <div>${description}</div>
-    //     <div class="ingredients">${ingredients}</div>
-    //     <div>${image}</div>
-    // `;
     const html = `
         <table>
             <tr>
-                <td>${title}</td>
+                <td class="recipe-title" onclick=(${detailedDescription(
+                  ingredients
+                )})>${title}</td>
                 <td>${description}</td>
                 <td class="ingredients">${ingredients}</td>
                 <td><img src=${image} width="100" height="100"/></td>
@@ -225,20 +220,31 @@ function renderRecipeList() {
   });
 
   document.querySelector(".js-recipe-list").innerHTML = recipeListHTML;
+
+  document.querySelectorAll(".recipe-title").forEach((title, index) => {
+    title.addEventListener("click", (title) => {
+      const selectedRecipe = recipes.splice(index, 1);
+
+      alert(`
+        Title: ${selectedRecipe[0].title}
+Instruction: ${selectedRecipe[0].instructions}
+    `);
+    });
+  });
 }
 
 document.querySelector("#searchbar").addEventListener("keydown", () => {
   searchRecipe();
 });
 
-// document.querySelector(".search-btn").addEventListener("click", () => {
-//   searchRecipe();
-// });
+function detailedDescription(recipeTitle) {
+  console.log(recipeTitle);
+}
+
+let searchInput = document.getElementById("searchbar").value;
+searchInput = searchInput.toLowerCase();
 
 function searchRecipe() {
-  let searchInput = document.getElementById("searchbar").value;
-  searchInput = searchInput.toLowerCase();
-
   let ingredients = document.getElementsByClassName("ingredients");
 
   for (i = 0; i < ingredients.length; i++) {
