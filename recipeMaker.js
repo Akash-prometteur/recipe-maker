@@ -199,20 +199,33 @@ let recipes = [
 function renderRecipeList() {
   let recipeListHTML = "";
 
-  recipes.forEach(function (recipeObject) {
+  recipes.forEach(function (recipeObject, index) {
     const { title, description, ingredients, instructions, image } =
       recipeObject;
 
-    const html = `
-        <table>
-            <tr>
-                <td class="recipe-title">${title}</td>
-                <td>${description}</td>
-                <td class="ingredients">${ingredients}</td>
-                <td><img src=${image} width="100" height="100"/></td>
-            </tr>
-        </table>
-    `;
+    // const html = `
+    //     <table>
+    //         <tr>
+    //             <td class="recipe-title">${title}</td>
+    //             <td>${description}</td>
+    //             <td class="ingredients">${ingredients}</td>
+    //             <td><img src=${image} width="100" height="100"/></td>
+    //         </tr>
+    //     </table>
+    // `;
+
+    html = `
+        <div>
+            <img src="${image}" width="100" height="100">
+            <h3 class="recipe-title" data-index="${index}">${title}</h3>
+            <ul class="ingredients">
+                ${ingredients
+                  .map((ingredient) => `<li>${ingredient}</li>`)
+                  .join("")}
+            </ul>
+            <p>${description}</p>
+        </div> 
+        `;
 
     recipeListHTML += html;
   });
@@ -223,17 +236,45 @@ function renderRecipeList() {
     title.addEventListener("click", () => {
       const selectedRecipe = recipes.splice(index, 1);
 
-      alert(`
-Title: ${selectedRecipe[0].title}
-Instruction: ${selectedRecipe[0].instructions}
-    `);
+      const title = selectedRecipe[0].title;
+      const instructions = selectedRecipe[0].instructions;
+
+      showModal(title, instructions);
+      openModal();
     });
   });
+}
+
+function showModal(title, instructions) {
+  let modalHTML;
+
+  const modal = `<div>
+          <h3>Recipe Name: ${title}</h3>
+          <p>Instructions: </p>
+          <p>${instructions}</p>
+        </div>
+        <button class="close-modal" onclick=(closeModal())>Close</button>
+      `;
+
+  modalHTML += modal;
+
+  document.querySelector(".modal").innerHTML = modalHTML;
+}
+
+function openModal() {
+  document.querySelector(".modal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.querySelector(".modal").classList.add("hidden");
 }
 
 document.querySelector("#searchbar").addEventListener("keydown", () => {
   searchRecipe();
 });
+// document.querySelector(".search-btn").addEventListener("click", () => {
+//   searchRecipe();
+// });
 
 function searchRecipe() {
   let searchInput = document.getElementById("searchbar").value;
@@ -241,7 +282,7 @@ function searchRecipe() {
   let ingredients = document.getElementsByClassName("ingredients");
 
   for (i = 0; i < ingredients.length; i++) {
-    if (!ingredients[i].innerHTML.toLocaleLowerCase().includes(searchInput)) {
+    if (!ingredients[i].innerHTML.toLocaleLowerCase().search(searchInput)) {
       ingredients[i].style.display = "none";
     } else {
       ingredients[i].style.display = "list-item";
