@@ -203,17 +203,6 @@ function renderRecipeList() {
     const { title, description, ingredients, instructions, image } =
       recipeObject;
 
-    // const html = `
-    //     <table>
-    //         <tr>
-    //             <td class="recipe-title">${title}</td>
-    //             <td>${description}</td>
-    //             <td class="ingredients">${ingredients}</td>
-    //             <td><img src=${image} width="100" height="100"/></td>
-    //         </tr>
-    //     </table>
-    // `;
-
     html = `
         <div>
             <img src="${image}" width="100" height="100">
@@ -234,10 +223,10 @@ function renderRecipeList() {
 
   document.querySelectorAll(".recipe-title").forEach((title, index) => {
     title.addEventListener("click", () => {
-      const selectedRecipe = recipes.splice(index, 1);
+      const selectedRecipe = recipes[index]
 
-      const title = selectedRecipe[0].title;
-      const instructions = selectedRecipe[0].instructions;
+      const title = selectedRecipe.title;
+      const instructions = selectedRecipe.instructions;
 
       showModal(title, instructions);
       openModal();
@@ -248,12 +237,13 @@ function renderRecipeList() {
 function showModal(title, instructions) {
   let modalHTML;
 
-  const modal = `<div>
-          <h3>Recipe Name: ${title}</h3>
-          <p>Instructions: </p>
-          <p>${instructions}</p>
-        </div>
-        <button class="close-modal" onclick=(closeModal())>Close</button>
+  const modal = `
+  <div>
+      <h3>Recipe Name: ${title}</h3>
+      <p>Instructions: </p>
+      <p>${instructions}</p>
+  </div>
+  <button class="close-modal" onclick=(closeModal())>Close</button>
       `;
 
   modalHTML += modal;
